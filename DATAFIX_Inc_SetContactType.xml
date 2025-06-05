@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2025-06-05 22:38:21">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description>https://macul.medium.com/consertando-o-rumo-por-que-o-fix-script-%C3%A9-a-ferramenta-certa-para-corre%C3%A7%C3%B5es-no-servicenow-0e7d6f71e70f</description>
+<inserted/>
+<name>DATAFIX_Inc_SetContactType</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>bca6d7c4c3c2e210114e1933e4013136</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-06-05 22:38:21</sys_created_on>
+<sys_id>d2c7db84c3c2e210114e1933e4013184</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-06-05 22:38:21</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_script_fix_d61903cc87422a501a960e530cbb3514</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_fix"&gt;&lt;sys_script_fix action="INSERT_OR_UPDATE"&gt;&lt;before&gt;false&lt;/before&gt;&lt;description&gt;Fix script para atualizar o campo contact_type nos registros de incident: Este script busca todos os incidentes cuja short_description contém 'ProjetoAlfa' e altera o campo contact_type para 'monitoring'. Este script é executado para corrigir o registro de contato para categorias específicas de incidentes. A execução desse script afetará todos os incidentes que atendem ao critério especificado e não se aplicará a outros tipos de registros.&amp;#13;
+&amp;#13;
+&lt;/description&gt;&lt;name&gt;update INC contact type = monitoring&lt;/name&gt;&lt;record_for_rollback&gt;true&lt;/record_for_rollback&gt;&lt;script&gt;&lt;![CDATA[// Inicia o script
+(function() {
+    // *** NOVA PARTE: Defina o termo de busca aqui! ***
+    // Altere o valor de 'searchTerm' para o conteúdo que você deseja buscar na short_description.
+    var searchTerm = 'ProjetoAlfa'; // &lt;-- Altere este valor para o que você precisa!
+
+    // Define a classe que queremos trabalhar, neste caso, "incident"
+    var incidentGR = new GlideRecord('incident'); // Alterado para 'incident'
+    
+    // Busca todos os incidentes com a short_description contendo o valor da nossa variável 'searchTerm'
+    incidentGR.addQuery('short_description', 'CONTAINS', searchTerm);
+    incidentGR.query();
+
+    var updatedCount = 0; // Contador para saber quantos registros foram atualizados
+
+    // Itera sobre os registros encontrados
+    while (incidentGR.next()) {
+        // Atualiza o campo contact_type para 'monitoring' (se existir em incident, ou altere para outro campo comum)
+        // ATENÇÃO: O campo 'contact_type' pode não ser comum na tabela 'incident'.
+        // Se você quiser atualizar um campo mais comum em incident, como 'urgency' ou 'state',
+        // ou 'description', altere a linha abaixo. Exemplo: incidentGR.urgency = 2; // Para Urgency = High
+        // Ou: incidentGR.description = 'Descrição atualizada por script.';
+        incidentGR.contact_type = 'monitoring'; // Mantenho por ser o que você tinha, mas valide se existe e é o campo desejado
+        
+        // Salva as alterações
+        incidentGR.update();
+        updatedCount++; // Incrementa o contador a cada atualização
+    }
+    
+    // Log de quantos registros foram atualizados
+    gs.info('Script de atualização de Incidentes: Foram atualizados ' + updatedCount + 
+            ' incidentes com short_description contendo "' + searchTerm + '".'); // Mensagem de log ajustada
+})();]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_fix&lt;/sys_class_name&gt;&lt;sys_created_by&gt;tiago.macul&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-06-05 21:35:05&lt;/sys_created_on&gt;&lt;sys_id&gt;d61903cc87422a501a960e530cbb3514&lt;/sys_id&gt;&lt;sys_mod_count&gt;4&lt;/sys_mod_count&gt;&lt;sys_name&gt;update INC contact type = monitoring&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_fix_d61903cc87422a501a960e530cbb3514&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-06-05 22:33:51&lt;/sys_updated_on&gt;&lt;unloadable&gt;false&lt;/unloadable&gt;&lt;/sys_script_fix&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-7874354</payload_hash>
+<remote_update_set display_value="DATAFIX_Inc_SetContactType">d2c7db84c3c2e210114e1933e4013184</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-06-05 22:38:21</sys_created_on>
+<sys_id>5ac7db84c3c2e210114e1933e4013184</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>197423aaf850000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-06-05 22:38:21</sys_updated_on>
+<table/>
+<target_name>update INC contact type = monitoring</target_name>
+<type>Fix Script</type>
+<update_domain>global</update_domain>
+<update_guid>28c65b84abc2e2109e86ffe5b3327077</update_guid>
+<update_guid_history>28c65b84abc2e2109e86ffe5b3327077:-7874354,2b46df8425c2e210e4e1d680b243ac61:564892600,72d4db0461c2e210c5fe35e4b138dbe1:1889734174,f9bc83c84e82e210f2b3a6b10bd5bc4d:-842435362,54db43488482e210d18f37186b880f84:-468175379</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_script_fix_07ed8bc087822a501a960e530cbb3542</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_fix"&gt;&lt;sys_script_fix action="INSERT_OR_UPDATE"&gt;&lt;before&gt;false&lt;/before&gt;&lt;description&gt;Fix script para atualizar o campo contact_type nos registros de sc_req_item: Este script busca todos os incidentes cuja short_description contém 'ProjetoAlfa' e altera o campo contact_type para 'monitoring'. &amp;#13;
+&amp;#13;
+Este script é executado para corrigir o registro de contato para categorias específicas de req itens.&amp;#13;
+&amp;#13;
+ A execução desse script afetará todos os incidentes que atendem ao critério especificado e não se aplicará a outros tipos de registros.&amp;#13;
+&amp;#13;
+&lt;/description&gt;&lt;name&gt;update REQITEM contact type = monitoring&lt;/name&gt;&lt;record_for_rollback&gt;true&lt;/record_for_rollback&gt;&lt;script&gt;&lt;![CDATA[// Inicia o script
+(function() {
+    // *** NOVA PARTE: Defina o termo de busca aqui! ***
+    // Altere o valor de 'searchTerm' para o conteúdo que você deseja buscar na short_description.
+    var searchTerm = 'ProjetoAlfa'; // &lt;-- Altere este valor para o que você precisa!
+
+    // Define a classe que queremos trabalhar, neste caso, "sc_req_item"
+    var reqItemGR = new GlideRecord('sc_req_item');
+    
+    // Busca todos os itens de solicitação com a short_description contendo o valor da nossa variável 'searchTerm'
+    reqItemGR.addQuery('short_description', 'CONTAINS', searchTerm);
+    reqItemGR.query();
+
+    var updatedCount = 0; // Contador para saber quantos registros foram atualizados
+
+    // Itera sobre os registros encontrados
+    while (reqItemGR.next()) {
+        // Atualiza o campo contact_type para 'monitoring'
+        reqItemGR.contact_type = 'monitoring';
+        
+        // Salva as alterações
+        reqItemGR.update();
+        updatedCount++; // Incrementa o contador a cada atualização
+    }
+    
+    // Log de quantos registros foram atualizados
+    gs.info('Script de atualização de RITMs: Foram atualizados ' + updatedCount + 
+            ' itens de solicitação com short_description contendo "' + searchTerm + '".');
+})();]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_fix&lt;/sys_class_name&gt;&lt;sys_created_by&gt;tiago.macul&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-06-05 21:55:15&lt;/sys_created_on&gt;&lt;sys_id&gt;07ed8bc087822a501a960e530cbb3542&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_name&gt;update REQITEM contact type = monitoring&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_fix_07ed8bc087822a501a960e530cbb3542&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-06-05 22:33:47&lt;/sys_updated_on&gt;&lt;unloadable&gt;false&lt;/unloadable&gt;&lt;/sys_script_fix&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-1148947596</payload_hash>
+<remote_update_set display_value="DATAFIX_Inc_SetContactType">d2c7db84c3c2e210114e1933e4013184</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-06-05 22:38:21</sys_created_on>
+<sys_id>96c7db84c3c2e210114e1933e4013184</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>197423a9e510000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-06-05 22:38:21</sys_updated_on>
+<table/>
+<target_name>update REQITEM contact type = monitoring</target_name>
+<type>Fix Script</type>
+<update_domain>global</update_domain>
+<update_guid>a7b61b884382e210d6b9c3f3b9f21f82</update_guid>
+<update_guid_history>a7b61b884382e210d6b9c3f3b9f21f82:-1148947596,bf161f441bc2e2100689c33bdcf78e1c:1835041234,0fd4db0430c2e2104cd1a2dff3bf4ee2:280497771</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>
